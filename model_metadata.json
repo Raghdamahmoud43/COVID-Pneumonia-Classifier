@@ -1,0 +1,102 @@
+{
+  "model_name": "COVID-NORMAL-PNEUMONIA X-Ray Classifier",
+  "model_file": "best_model_v2.keras",
+  "purpose": "Three-class image classification of chest X-ray images.",
+  "framework": "TensorFlow / Keras",
+  "architecture": "MobileNetV2",
+  "pretrained_weights": "ImageNet",
+  "input": {
+    "shape": [
+      224,
+      224,
+      3
+    ],
+    "image_size": "224x224 pixels",
+    "preprocessing": "Rescaling 1./127.5 with offset -1, producing values approximately in the [-1, 1] range."
+  },
+  "output": {
+    "number_of_classes": 3,
+    "classes": [
+      "COVID",
+      "NORMAL",
+      "PNEUMONIA"
+    ],
+    "activation": "softmax"
+  },
+  "training": {
+    "train_images": 3659,
+    "validation_images": 783,
+    "test_images": 786,
+    "batch_size": 32,
+    "epochs": 10,
+    "optimizer": "adam",
+    "loss": "sparse_categorical_crossentropy",
+    "base_model_frozen": true,
+    "early_stopping": {
+      "monitor": "val_accuracy",
+      "patience": 3,
+      "restore_best_weights": true
+    },
+    "checkpoint": {
+      "monitor": "val_accuracy",
+      "save_best_only": true,
+      "mode": "max"
+    }
+  },
+  "evaluation": {
+    "test_accuracy": 0.9746,
+    "test_accuracy_percent": 97.46,
+    "classes": {
+      "COVID": {
+        "support": 245,
+        "precision": 0.9879,
+        "recall": 0.9959,
+        "f1_score": 0.9919
+      },
+      "NORMAL": {
+        "support": 271,
+        "precision": 0.957,
+        "recall": 0.9852,
+        "f1_score": 0.9709
+      },
+      "PNEUMONIA": {
+        "support": 270,
+        "precision": 0.9808,
+        "recall": 0.9444,
+        "f1_score": 0.9623
+      }
+    },
+    "macro_average": {
+      "precision": 0.9752,
+      "recall": 0.9752,
+      "f1_score": 0.975
+    },
+    "weighted_average": {
+      "precision": 0.9748,
+      "recall": 0.9746,
+      "f1_score": 0.9745
+    },
+    "confusion_matrix": [
+      [
+        244,
+        0,
+        1
+      ],
+      [
+        0,
+        267,
+        4
+      ],
+      [
+        3,
+        12,
+        255
+      ]
+    ]
+  },
+  "limitations": [
+    "This model is a classification model and is not a medically approved diagnostic device.",
+    "Reported performance is based on the supplied dataset and held-out test split.",
+    "The dataset source/license was not provided in the uploaded files, so commercial redistribution rights have not been verified."
+  ]
+}
