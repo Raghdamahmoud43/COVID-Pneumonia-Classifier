@@ -1,0 +1,104 @@
+MODEL METADATA
+================
+
+Model Name:
+COVID-NORMAL-PNEUMONIA X-Ray Classifier
+
+Model File:
+best_model_v2.keras
+
+Purpose:
+Three-class image classification of chest X-ray images.
+
+Framework:
+TensorFlow / Keras
+
+Architecture:
+MobileNetV2
+
+Pretrained Weights:
+ImageNet
+
+INPUT
+-----
+Shape: 224 x 224 x 3
+Preprocessing: Rescaling 1./127.5 with offset -1
+Approximate output range: [-1, 1]
+
+OUTPUT
+------
+Classes:
+1. COVID
+2. NORMAL
+3. PNEUMONIA
+
+Number of classes: 3
+Activation: Softmax
+
+TRAINING
+--------
+Training images: 3659
+Validation images: 783
+Test images: 786
+Batch size: 32
+Epochs: 10
+Optimizer: Adam
+Loss: sparse_categorical_crossentropy
+Base MobileNetV2: Frozen
+
+Early Stopping:
+Monitor: val_accuracy
+Patience: 3
+Restore best weights: True
+
+Model Checkpoint:
+Monitor: val_accuracy
+Save best only: True
+Mode: max
+
+EVALUATION
+----------
+Test Accuracy: 97.46%
+
+COVID:
+Precision: 98.79%
+Recall: 99.59%
+F1-score: 99.19%
+Support: 245
+
+NORMAL:
+Precision: 95.70%
+Recall: 98.52%
+F1-score: 97.09%
+Support: 271
+
+PNEUMONIA:
+Precision: 98.08%
+Recall: 94.44%
+F1-score: 96.23%
+Support: 270
+
+Macro Average:
+Precision: 97.52%
+Recall: 97.52%
+F1-score: 97.50%
+
+Weighted Average:
+Precision: 97.48%
+Recall: 97.46%
+F1-score: 97.45%
+
+CONFUSION MATRIX
+----------------
+                 Predicted
+                 COVID  NORMAL  PNEUMONIA
+
+Actual COVID       244      0        1
+Actual NORMAL        0    267        4
+Actual PNEUMONIA     3     12      255
+
+LIMITATIONS
+-----------
+- This model is a classification model and is not a medically approved diagnostic device.
+- Reported performance is based on the supplied dataset and held-out test split.
+- The dataset source/license was not provided in the uploaded files, so commercial redistribution rights have not been verified.
